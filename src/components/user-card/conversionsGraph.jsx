@@ -1,6 +1,6 @@
 // @flow
 
-import React from 'react';
+import React, { Component } from 'react';
 import Log from './../../records/Log';
 
 import { VictoryLine } from 'victory';
@@ -22,24 +22,33 @@ function formatTimeLabel(date: Date): string {
   return `${date.getMonth()}/${date.getDay()}`;
 }
 
-export default function (props: Props): ?React.Element<*> {
-  if (props.logs == null || !props.logs.length) {
-    return null;
+export default class ConversionsGraph extends Component {
+  props: Props;
+
+  shouldComponentUpdate(nextProps: Props): boolean {
+    return this.props.logs.length !== nextProps.logs.length;
   }
 
-  const extent = d3.extent(props.logs, (l: Log): Date => l.time);
+  render(): ?React.Element<*> {
+    if (this.props.logs == null || !this.props.logs.length) {
+      return null;
+    }
 
-  return (
-    <div className="user-conversions-graph">
-      <VictoryLine
-        height={55}
-        width={160}
-        padding={0}
-        data={parseLogsIntoHistogram(props.logs)}
-      />
-      <div className="user-conversions-graph-label">
-        Conversions {formatTimeLabel(extent[0])} - {formatTimeLabel(extent[1])}
+    const logs = this.props.logs.filter((l: Log): boolean => l.type === 'conversion');
+    const extent = d3.extent(logs, (l: Log): Date => l.time);
+
+    return (
+      <div className="user-conversions-graph">
+        <VictoryLine
+          height={55}
+          width={160}
+          padding={0}
+          data={parseLogsIntoHistogram(logs)}
+        />
+        <div className="user-conversions-graph-label">
+          Conversions {formatTimeLabel(extent[0])} - {formatTimeLabel(extent[1])}
+        </div>
       </div>
-    </div>
-  );
+    );
+  }
 }

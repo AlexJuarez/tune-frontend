@@ -19,14 +19,36 @@ function formatRevenue(revenue: number): string {
 }
 
 export default class UserCard extends Component {
+  constructor(props: Props, context: Object) {
+    super(props, context);
+
+    this.logs = [];
+  }
+
   props: Props;
+
+  shouldComponentUpdate(nextProps: Props): boolean {
+    return nextProps.user !== this.props.user ||
+      this.props.logs.length !== nextProps.logs.length;
+  }
+
+  logs: Array<Log>;
+
+  getLogs(): Array<Log> {
+    if (!this.logs.length && this.props.logs.length) {
+      const u = this.props.user;
+      this.logs = this.props.logs.filter((l: Log): boolean => l.user_id === u.id);
+    }
+
+    return this.logs;
+  }
 
   info(): {
     impressions: number,
     conversions: number,
     revenue: number,
   } {
-    const { logs } = this.props;
+    const logs = this.getLogs();
     let impressions = 0;
     let conversions = 0;
     let revenue = 0;
@@ -49,13 +71,15 @@ export default class UserCard extends Component {
   }
 
   render(): React.Element<*> {
-    const { user, logs } = this.props;
+    const { user } = this.props;
     const { impressions, conversions, revenue } = this.info();
+
+    const logs = this.getLogs();
 
     return (
       <div className="user-card">
         <Face user={user} />
-        <ConversionsGraph logs={logs.filter((l: Log): boolean => l.type === 'conversion')} />
+        <ConversionsGraph logs={logs} />
         <div className="user-card-info">
           <div className="impressions">{impressions}</div>
           <div className="subtitle">impressions</div>

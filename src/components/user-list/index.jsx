@@ -15,7 +15,7 @@ export default function (props: Props): React.Element<*> {
 
   const userCards = users.map(
     (u: User): React.Element<*> =>
-      <UserCard key={u.id} user={u} logs={logs.filter((l: Log): boolean => l.user_id === u.id)} />
+      <UserCard key={u.id} user={u} logs={logs} />
   );
 
   return (
