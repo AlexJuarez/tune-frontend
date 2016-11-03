@@ -1,0 +1,6 @@
+[include]
+node_modules/
+src/
+
+[options]
+module.name_mapper.extension='less' -> '<PROJECT_ROOT>/src/lessModule.js.flow'

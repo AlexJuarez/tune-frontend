@@ -1,0 +1,51 @@
+@user-avatar-bg: #3498db;
+@white: #fff;
+@user-name-color: #2c3e50;
+@user-occupation-color: #7f8c8d;
+
+.user-avatar {
+  float: left;
+  height: 80px;
+  width: 80px;
+  overflow: hidden;
+  background: @user-avatar-bg;
+  border-radius: 40px;
+  margin-right: 10px;
+  position: relative;
+
+  > img {
+    position: absolute;
+    max-width: 80px;
+    height: 80px;
+  }
+
+  > .user-initial {
+    color: @white;
+    font-size: 36px;
+    line-height: 80px;
+    text-align: center;
+  }
+}
+
+.user-name {
+  margin: 15px 0 0 0;
+  font-size: 20px;
+  white-space: nowrap;
+  color: @user-name-color;
+  max-width: 290px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.user-occupation {
+  box-sizing: border-box;
+  padding-top: 2px;
+  padding-left: 9px;
+  font-size: 14px;
+  max-width: 290px;
+  font-weight: bold;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: @user-occupation-color;
+}

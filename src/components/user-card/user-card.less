@@ -1,0 +1,56 @@
+@white: #fff;
+@black: #000;
+@user-conversions-color: #2980b9;
+@user-impressions-color: #e67e22;
+@user-revenue-color: #27ae60;
+
+.user-card {
+  width: 330px;
+  height: 204px;
+  float: left;
+  background: @white;
+  box-sizing: border-box;
+  border: 5px solid @black;
+  border-radius: 10px;
+  margin: 26px 0 0 31px;
+  padding: 10px 15px;
+  position: relative;
+}
+
+.user-card-info {
+  text-align: right;
+  position: absolute;
+  bottom: 19px;
+  right: 29px;
+  color: #bdc3c7;
+  font-size: 13px;
+
+  > .conversions, > .impressions {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 12px;
+  }
+
+  > .conversions {
+    margin-top: 4px;
+    color: @user-conversions-color;
+  }
+
+  > .impressions {
+    color: @user-impressions-color;
+  }
+
+  > .revenue {
+    margin-top: 8px;
+    font-size: 20px;
+    font-weight: bold;
+    color: @user-revenue-color;
+  }
+}
+
+@media (max-width: 420px){
+  .user-card {
+    float: none;
+    margin: 20px auto;
+  }
+}
